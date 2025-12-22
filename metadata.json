@@ -1,0 +1,8 @@
+
+{
+  "name": "Holly Jolly Polaroid",
+  "description": "A festive retro Polaroid camera application with real-time video, physical ejection animations, and a Christmas-themed photo wall.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
