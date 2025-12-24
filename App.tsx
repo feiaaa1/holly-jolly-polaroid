@@ -5,8 +5,26 @@ import Snowfall from './components/Snowfall';
 import RetroCamera from './components/RetroCamera';
 import PolaroidPhoto from './components/PolaroidPhoto';
 import { PolaroidPhoto as IPhoto } from './types';
-import { generateFestiveCaption } from './services/geminiService';
 import { Music, TreeDeciduous, Star, Bell } from 'lucide-react';
+
+// 本地随机标题生成函数
+const getRandomCaption = (): string => {
+  const captions = [
+    "Jolly Times",
+    "Winter Magic",
+    "Season's Greetings",
+    "Warm & Cozy",
+    "Pure Joy",
+    "Merry & Bright",
+    "Cozy Cocoa Vibes",
+    "Under the Mistletoe",
+    "Holly Jolly",
+    "Festive Cheer",
+    "Snow Day Fun",
+    "Christmas Spirit"
+  ];
+  return captions[Math.floor(Math.random() * captions.length)];
+};
 
 const App: React.FC = () => {
   const [photos, setPhotos] = useState<IPhoto[]>([]);
@@ -27,12 +45,8 @@ const App: React.FC = () => {
     ctx.drawImage(video, 0, 0, 640, 640);
     const imageData = canvas.toDataURL('image/jpeg', 0.8);
 
-    // Audio feedback (shutter sound)
-    const audio = new Audio('https://www.soundjay.com/camera/camera-shutter-click-01.mp3');
-    audio.play().catch(() => {});
-
-    // Get a festive caption from Gemini
-    const caption = await generateFestiveCaption(imageData);
+    // Get a festive caption (local random selection)
+    const caption = getRandomCaption();
 
     const newPhoto: IPhoto = {
       id: uuidv4(),
@@ -52,7 +66,7 @@ const App: React.FC = () => {
   }, [isCapturing]);
 
   const handleDragEnd = (id: string, x: number, y: number) => {
-    setPhotos(prev => prev.map(p => p.id === id ? { ...p, x, y, isDeveloping: false } : p));
+    setPhotos(prev => prev.map(p => p.id === id ? { ...p, x, y } : p));
   };
 
   return (

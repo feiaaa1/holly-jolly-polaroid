@@ -48,7 +48,7 @@ const RetroCamera: React.FC<Props> = ({ onCapture, isCapturing }) => {
                     autoPlay 
                     playsInline 
                     muted 
-                    className="w-full h-full object-cover grayscale brightness-110"
+                    className="w-full h-full object-cover"
                 />
                 {/* Lens Flare Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none" />
